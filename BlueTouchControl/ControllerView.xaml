@@ -1,0 +1,65 @@
+﻿<Page
+    x:Class="BlueTouchControl.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BlueTouchControl"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <StackPanel Width="{TemplateBinding Width}">
+                            <Ellipse Width="50" Height="50" Fill="Gray" Stroke="Red" StrokeThickness="2" />
+                            <TextBlock Text="{TemplateBinding Content}" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <ProgressBar IsIndeterminate="{Binding Progressing}" />
+            <TextBlock 
+                HorizontalAlignment="Center" VerticalAlignment="Center" 
+                Text="Virtual Microscope Multi-Touch Remote-Controller" 
+                FontWeight="Bold" FontSize="18" 
+            />
+        </Grid>
+
+        <Grid Grid.Row="1">
+
+            <ItemsControl ItemsSource="{Binding Shapes}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas 
+                            Background="{Binding Display}"
+                            SizeChanged="CanvasSizeChanged"
+                            PointerMoved="CanvasPointerMoved"
+                            PointerPressed="CanvasPointerPressed"
+                            PointerReleased="CanvasPointerReleased"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+
+            <StackPanel Width="100" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Button Content="Connect" Click="ConnectDeviceClick" Style="{StaticResource MenuButtonStyle}"/>
+                <Button Content="Timestamp" Click="SendTimeStampClick" Style="{StaticResource MenuButtonStyle}"/>
+                <Button Content="Benchmark" Click="SendBenchmarkClick" Style="{StaticResource MenuButtonStyle}"/>
+                <Button Content="Close" Click="CloseApplicationClick" Style="{StaticResource MenuButtonStyle}"/>
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</Page>
