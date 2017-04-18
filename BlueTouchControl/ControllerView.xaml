@@ -46,21 +46,34 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
-            <ProgressBar IsIndeterminate="{Binding Progressing}" />
+        <Border Grid.Row="0" Grid.Column="0" Background="DarkBlue"/>
+
+        <Grid Grid.Row="0" Grid.Column="1">
+            <ProgressBar IsIndeterminate="{Binding Progressing}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
             <TextBlock 
                 HorizontalAlignment="Center" VerticalAlignment="Center" 
-                Text="Virtual Microscope Multi-Touch Remote-Controller" 
+                Text="Multitouch Bluetooth Controller" 
                 FontWeight="Bold" FontSize="18" 
             />
         </Grid>
 
-        <Grid Grid.Row="1">
+        <Border Grid.Row="0" Grid.Column="2" Background="DarkBlue"/>
+
+        <Grid Grid.Row="1" Grid.Column="0"></Grid>
+
+        <Grid Grid.Row="1" Grid.Column="1">
 
             <ItemsControl ItemsSource="{Binding Shapes}">
                 <ItemsControl.ItemsPanel>
@@ -75,13 +88,33 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
 
-            <StackPanel x:Name="ControlMenu" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                <Button Content="Connect" Click="ConnectDeviceClick" Style="{StaticResource MenuButtonStyle}"/>
-                <Button Content="Timestamp" Click="SendTimeStampClick" Style="{StaticResource MenuButtonStyle}"/>
-                <Button Content="Benchmark" Click="SendBenchmarkClick" Style="{StaticResource MenuButtonStyle}"/>
-                <Button Content="Close" Click="CloseApplicationClick" Style="{StaticResource MenuButtonStyle}"/>
+            <StackPanel x:Name="ControlMenu" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Button Content="Connect" Click="ConnectDeviceClick" Style="{StaticResource MenuButtonStyle}" Width="80"/>
+                <Button Content="Timestamp" Click="SendTimeStampClick" Style="{StaticResource MenuButtonStyle}" Width="80"/>
+                <Button Content="Benchmark" Click="SendBenchmarkClick" Style="{StaticResource MenuButtonStyle}" Width="80"/>
+                <Button Content="Close" Click="CloseApplicationClick" Style="{StaticResource MenuButtonStyle}" Width="80"/>
             </StackPanel>
 
+            <ListView 
+                ItemsSource="{x:Bind ViewModel.Messages, Mode=OneWay}"
+                HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+
         </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="2"></Grid>
+        
+        <Border Grid.Row="2" Grid.Column="0" Background="DarkBlue"/>
+
+        <Grid Grid.Row="2" Grid.Column="1">
+            <ProgressBar IsIndeterminate="{Binding Progressing}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            <TextBlock 
+                HorizontalAlignment="Center" VerticalAlignment="Center" 
+                Text="Multitouch Bluetooth Controller" 
+                FontWeight="Bold" FontSize="18" 
+            />
+        </Grid>
+
+        <Border Grid.Row="2" Grid.Column="2" Background="DarkBlue"/>
+
     </Grid>
 </Page>

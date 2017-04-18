@@ -25,11 +25,14 @@ namespace BlueTouchControl
         public ControllerModel()
         {
 
+            AddMessage("find ID one");
             // take ID from device-app
             var id1 = GetHardwareId();
 
+            AddMessage("check sys info");
             GetSystemInfo();
 
+            AddMessage("show BT info");
             // take id from BT-device
             var id2 = GetBluetoothId();
         }
@@ -54,12 +57,23 @@ namespace BlueTouchControl
             set { SetProperty(ref statusLabel, value); }
         }
 
+        public ObservableCollection<Shape> Shapes { get; private set; } = new ObservableCollection<Shape>();
 
-        public ObservableCollection<Shape> Shapes { get; set; }
+        public ObservableCollection<string> Messages { get; private set; } = new ObservableCollection<string>();
 
         #endregion Properties
 
         #region Methods
+
+        public void AddMessage(string msg)
+        {
+            if (Messages.Count > 10)
+            {
+                Messages.RemoveAt(0);
+            }
+
+            Messages.Add(msg);
+        }
 
         public void AddPointerEvent(uint id, ulong time, Point posi)
         {
