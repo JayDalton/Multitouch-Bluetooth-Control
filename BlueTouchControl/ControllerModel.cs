@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
+using Windows.Security.ExchangeActiveSyncProvisioning;
+using Windows.System.Profile;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
 
@@ -23,6 +25,13 @@ namespace BlueTouchControl
         public ControllerModel()
         {
 
+            // take ID from device-app
+            var id1 = GetHardwareId();
+
+            GetSystemInfo();
+
+            // take id from BT-device
+            var id2 = GetBluetoothId();
         }
 
         #region Properties
@@ -56,7 +65,40 @@ namespace BlueTouchControl
         {
 
         }
-        
+
+        private void GetSystemInfo()
+        {
+            var deviceInformation = new EasClientDeviceInformation();
+            var Model = deviceInformation.SystemProductName;
+            var Manufracturer = deviceInformation.SystemManufacturer;
+            var Name = deviceInformation.FriendlyName;
+            var OSName = deviceInformation.OperatingSystem;
+        }
+
+        private static string GetHardwareId()
+        {
+            if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.System.Profile.HardwareIdentification"))
+            {
+                var token = HardwareIdentification.GetPackageSpecificToken(null);
+                var hardwareId = token.Id;
+                var cert = token.Certificate;
+                var sign = token.Signature;
+                var dataReader = Windows.Storage.Streams.DataReader.FromBuffer(hardwareId);
+
+                byte[] bytes = new byte[hardwareId.Length];
+                dataReader.ReadBytes(bytes);
+
+                return BitConverter.ToString(bytes).Replace("-", "");
+            }
+
+            throw new Exception("NO API FOR DEVICE ID PRESENT!");
+        }
+
+        private string GetBluetoothId()
+        {
+            return string.Empty;
+        }
+
         #endregion Methods
     }
 }

@@ -24,6 +24,28 @@
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ControlMenu.Orientation" Value="Vertical"/>
+                        <Setter Target="ControlMenu.HorizontalAlignment" Value="Left"/>
+                        <Setter Target="ControlMenu.VerticalAlignment" Value="Center"/>
+                        <!--<Setter Target="ArticleItems.ItemsPanel">
+                            <Setter.Value>
+                                <ItemsPanelTemplate >
+                                    <ItemsWrapGrid Orientation="Horizontal" VerticalAlignment="Top"/>
+                                </ItemsPanelTemplate>
+                            </Setter.Value>
+                        </Setter>-->
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -53,7 +75,7 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
 
-            <StackPanel Width="100" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <StackPanel x:Name="ControlMenu" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                 <Button Content="Connect" Click="ConnectDeviceClick" Style="{StaticResource MenuButtonStyle}"/>
                 <Button Content="Timestamp" Click="SendTimeStampClick" Style="{StaticResource MenuButtonStyle}"/>
                 <Button Content="Benchmark" Click="SendBenchmarkClick" Style="{StaticResource MenuButtonStyle}"/>

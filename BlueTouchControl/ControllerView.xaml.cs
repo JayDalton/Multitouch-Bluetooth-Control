@@ -27,6 +27,7 @@ namespace BlueTouchControl
         public MainPage()
         {
             this.InitializeComponent();
+            ViewModel = new ControllerModel();
         }
 
         private void CanvasPointerMoved(object sender, PointerRoutedEventArgs e)
